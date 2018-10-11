@@ -13,16 +13,20 @@ namespace WeatherForecastData.Pages
     public class IndexModel : PageModel
     {
         private readonly RegionsRepository _regionsRepo;
+        private readonly WeatherRepository _weatherRepo;
 
-        public IndexModel(RegionsRepository regionsRepo)
+        public IndexModel(RegionsRepository regionsRepo, WeatherRepository weatherRepo)
         {
             _regionsRepo = regionsRepo;
+            _weatherRepo = weatherRepo;
         }
 
         [BindProperty]
         public Address Address { get; set; }
 
         public IEnumerable<SelectListItem> Regions { get; set; }
+        public WeatherData WeatherInfo { get; set; }
+
 
         public IActionResult OnGet()
         {
@@ -31,7 +35,7 @@ namespace WeatherForecastData.Pages
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public IActionResult OnPost()
         {
             if (!ModelState.IsValid)
             {
@@ -39,7 +43,16 @@ namespace WeatherForecastData.Pages
             }
 
             // Retrieve Weather Forecast Data
+            var zipCode = 0;
+            if (!int.TryParse(Address.ZipCode.Substring(0, 5), out zipCode))
+            {
+                return Page();
+            }
 
+            WeatherInfo = _weatherRepo.GetWeatherData(zipCode);
+
+            
+            //return NotFound();
 
             // Save to Cache (if needed)
 

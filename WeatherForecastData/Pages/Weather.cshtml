@@ -1,0 +1,82 @@
+﻿@using WeatherForecastData.Pages
+@model WeatherForecastData.Models.WeatherData
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+<div>
+    <h4>Current Weather for @Model.City, @Model.Region  as of @Model.LastUpdated</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CurrentTempDegreesF)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CurrentTempDegreesF)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FeelsLikeTempDegreesF)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FeelsLikeTempDegreesF)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.WindSpeedMPH)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.WindSpeedMPH)
+            @Html.DisplayFor(model => model.WindDirection)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Condition)
+        </dt>
+        <dd>
+            <img src="http:@Model.ConditionIconUrl" asp-append-version="true" />
+            @Html.DisplayFor(model => model.Condition)
+        </dd>
+    </dl>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ForcastInfo[0].Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ForcastInfo[0].MinTempDegreesF)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ForcastInfo[0].MaxTempDegreesF)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ForcastInfo[0].AvgTempDegreesF)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ForcastInfo[0].Condition)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.ForcastInfo)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MinTempDegreesF)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaxTempDegreesF)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AvgTempDegreesF)
+            </td>
+            <td>
+                <img src="http:@item.ConditionIconUrl" asp-append-version="true" />
+                @Html.DisplayFor(modelItem => item.Condition)
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
