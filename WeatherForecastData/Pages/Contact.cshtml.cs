@@ -12,7 +12,7 @@ namespace WeatherForecastData.Pages
 
         public void OnGet()
         {
-            Message = "Your contact page.";
+            Message = "Contact Information:";
         }
     }
 }

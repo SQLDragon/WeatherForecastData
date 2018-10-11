@@ -12,7 +12,7 @@ namespace WeatherForecastData.Pages
 
         public void OnGet()
         {
-            Message = "Your application description page.";
+            Message = "Weather Forecast Data Application.";
         }
     }
 }
