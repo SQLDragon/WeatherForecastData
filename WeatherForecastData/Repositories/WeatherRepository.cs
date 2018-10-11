@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -15,20 +16,22 @@ namespace WeatherForecastData.Repositories
         private IConfiguration _config;
         private string _apiKey;
         private string _apiBaseUrl;
+        private IMemoryCache _cache;
+        private int _cacheExpirationSeconds;
 
-        public WeatherRepository(IConfiguration config)
+        public WeatherRepository(IConfiguration config, IMemoryCache memoryCache)
         {
             _config = config;
+            _cache = memoryCache;
             _apiKey = _config.GetValue<string>("WeatherAPI:Key");
             _apiBaseUrl = _config.GetValue<string>("WeatherAPI:BaseURL");
+            _cacheExpirationSeconds = _config.GetValue<int>("CacheExpirationSeconds");
         }
 
         public WeatherData GetWeatherData(int zipCode)
         {
-            // Check for Data in Cache
             WeatherData data = GetWeatherDataFromCache(zipCode);
 
-            // Retrieve Data from API
             if (data == null)
             {
                 data = GetWeatherDataFromApi(zipCode);
@@ -39,13 +42,11 @@ namespace WeatherForecastData.Repositories
 
         private WeatherData GetWeatherDataFromCache(int zipCode)
         {
-            // TODO - Implement Caching
-
-            var apiResults = string.Empty;
+            var apiResults = RetrieveDataFromCache(zipCode);
 
             if (!String.IsNullOrEmpty(apiResults))
             {
-                return ConvertJSONToModel(zipCode, apiResults);
+                return ConvertJSONToModel(zipCode, apiResults, true);
             }
 
             return null;
@@ -57,10 +58,9 @@ namespace WeatherForecastData.Repositories
 
             if (!String.IsNullOrEmpty(apiResults))
             {
-                // Save Data to Cache
                 SaveDataToCache(zipCode, apiResults);
 
-                return ConvertJSONToModel(zipCode, apiResults);
+                return ConvertJSONToModel(zipCode, apiResults, false);
             }
 
             return null;
@@ -85,9 +85,14 @@ namespace WeatherForecastData.Repositories
             }
         }
 
-        private WeatherData ConvertJSONToModel(int zipCode, string jsonData)
+        private WeatherData ConvertJSONToModel(int zipCode, string jsonData, bool fromCache)
         {
-            var finaldata = new WeatherData() { ZipCode = zipCode.ToString(), ForcastInfo = new List<ForecastData>() };
+            var finaldata = new WeatherData()
+            {
+                ZipCode = zipCode.ToString(),
+                FromCache = fromCache,
+                ForcastInfo = new List<ForecastData>()
+            };
 
             try
             {
@@ -124,15 +129,18 @@ namespace WeatherForecastData.Repositories
             return finaldata;
         }
 
-        private void SaveDataToCache (int zipCode, string results)
+        private void SaveDataToCache(int zipCode, string results)
         {
-            // TODO - Implement Caching
+            var cacheEntryOptions = new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromSeconds(_cacheExpirationSeconds));
 
+            _cache.Set(zipCode, results, cacheEntryOptions);
         }
 
         private string RetrieveDataFromCache(int zipCode)
         {
-            return string.Empty;
+            _cache.TryGetValue(zipCode, out string cachedData);
+
+            return cachedData;
         }
     }
 }

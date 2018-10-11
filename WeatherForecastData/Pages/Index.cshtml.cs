@@ -43,26 +43,16 @@ namespace WeatherForecastData.Pages
             }
 
             // Retrieve Weather Forecast Data
-            var zipCode = 0;
-            if (!int.TryParse(Address.ZipCode.Substring(0, 5), out zipCode))
+            if (!int.TryParse(Address.ZipCode.Substring(0, 5), out int zipCode))
             {
                 return Page();
             }
 
             WeatherInfo = _weatherRepo.GetWeatherData(zipCode);
 
-            
-            //return NotFound();
-
-            // Save to Cache (if needed)
-
-
-            // Display Weather Forecast Data
-
             Regions = _regionsRepo.GetRegions();
 
             return Page();
         }
-
     }
 }
