@@ -1,0 +1,104 @@
+{
+    "location": {
+        "name": "Roseville",
+        "region": "California",
+        "country": "USA",
+        "lat": 38.73,
+        "lon": -121.23,
+        "tz_id": "America/Los_Angeles",
+        "localtime_epoch": 1539730644,
+        "localtime": "2018-10-16 15:57"
+    },
+    "current": {
+        "last_updated_epoch": 1539729923,
+        "last_updated": "2018-10-16 15:45",
+        "temp_c": 27.0,
+        "temp_f": 80.6,
+        "is_day": 1,
+        "condition": {
+            "text": "Sunny",
+            "icon": "//cdn.apixu.com/weather/64x64/day/113.png",
+            "code": 1000
+        },
+        "wind_mph": 4.3,
+        "wind_kph": 6.8,
+        "wind_degree": 300,
+        "wind_dir": "WNW",
+        "pressure_mb": 1017.0,
+        "pressure_in": 30.5,
+        "precip_mm": 0.0,
+        "precip_in": 0.0,
+        "humidity": 13,
+        "cloud": 0,
+        "feelslike_c": 25.2,
+        "feelslike_f": 77.4,
+        "vis_km": 14.0,
+        "vis_miles": 8.0
+    },
+    "forecast": {
+        "forecastday": [
+            {
+                "date": "2018-10-16",
+                "date_epoch": 1539648000,
+                "day": {
+                    "maxtemp_c": 25.2,
+                    "maxtemp_f": 77.4,
+                    "mintemp_c": 10.2,
+                    "mintemp_f": 50.4,
+                    "avgtemp_c": 17.6,
+                    "avgtemp_f": 63.6,
+                    "maxwind_mph": 4.7,
+                    "maxwind_kph": 7.6,
+                    "totalprecip_mm": 0.0,
+                    "totalprecip_in": 0.0,
+                    "avgvis_km": 20.0,
+                    "avgvis_miles": 12.0,
+                    "avghumidity": 30.0,
+                    "condition": {
+                        "text": "Sunny",
+                        "icon": "//cdn.apixu.com/weather/64x64/day/113.png",
+                        "code": 1000
+                    },
+                    "uv": 4.5
+                },
+                "astro": {
+                    "sunrise": "07:16 AM",
+                    "sunset": "06:25 PM",
+                    "moonrise": "02:21 PM",
+                    "moonset": "No moonset"
+                }
+            },
+            {
+                "date": "2018-10-17",
+                "date_epoch": 1539734400,
+                "day": {
+                    "maxtemp_c": 25.2,
+                    "maxtemp_f": 77.4,
+                    "mintemp_c": 11.2,
+                    "mintemp_f": 52.2,
+                    "avgtemp_c": 18.1,
+                    "avgtemp_f": 64.5,
+                    "maxwind_mph": 4.0,
+                    "maxwind_kph": 6.5,
+                    "totalprecip_mm": 0.0,
+                    "totalprecip_in": 0.0,
+                    "avgvis_km": 20.0,
+                    "avgvis_miles": 12.0,
+                    "avghumidity": 34.0,
+                    "condition": {
+                        "text": "Sunny",
+                        "icon": "//cdn.apixu.com/weather/64x64/day/113.png",
+                        "code": 1000
+                    },
+                    "uv": 4.4
+                },
+                "astro": {
+                    "sunrise": "07:17 AM",
+                    "sunset": "06:23 PM",
+                    "moonrise": "03:02 PM",
+                    "moonset": "12:21 AM"
+                }
+            }
+        ]
+    }
+}
