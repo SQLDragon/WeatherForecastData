@@ -12,10 +12,10 @@ namespace WeatherForecastData.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly RegionsRepository _regionsRepo;
-        private readonly WeatherRepository _weatherRepo;
+        private readonly IRegionsRepository _regionsRepo;
+        private readonly IWeatherRepository _weatherRepo;
 
-        public IndexModel(RegionsRepository regionsRepo, WeatherRepository weatherRepo)
+        public IndexModel(IRegionsRepository regionsRepo, IWeatherRepository weatherRepo)
         {
             _regionsRepo = regionsRepo;
             _weatherRepo = weatherRepo;
@@ -30,7 +30,7 @@ namespace WeatherForecastData.Pages
 
         public IActionResult OnGet()
         {
-            Regions = _regionsRepo.GetRegions();
+            Regions = _regionsRepo.GetRegionsSelectList();
 
             return Page();
         }
@@ -50,7 +50,7 @@ namespace WeatherForecastData.Pages
 
             WeatherInfo = _weatherRepo.GetWeatherData(zipCode);
 
-            Regions = _regionsRepo.GetRegions();
+            Regions = _regionsRepo.GetRegionsSelectList();
 
             return Page();
         }
